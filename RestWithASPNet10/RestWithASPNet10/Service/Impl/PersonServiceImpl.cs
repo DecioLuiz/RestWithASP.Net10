@@ -1,48 +1,48 @@
 ﻿using RestWithASPNet10.Model;
+using RestWithASPNet10.Model.Context;
 
 namespace RestWithASPNet10.Service.Impl
 {
     public class PersonServiceImpl : IPersonService
     {
+        private MSSQLContext _context;
+
+        public PersonServiceImpl(MSSQLContext context)
+        {
+            _context = context;
+        }
         public List<Person> FindAll()
         {
-            List<Person> list = new List<Person>();
-            for(int i = 0; i < 8; i++)
-            {
-                var person = MockPerson(i);
-                list.Add(person);
-            }
-            return list;
+            return _context.Persons.ToList<Person>();
         }
         public Person FindById(long id)
         {
-            var person = MockPerson((int)id);
-            return person;
+            return _context.Persons.Find(id);
         }
         public Person Create(Person person)
         {
-            person.Id = new Random().Next(1, 1000);
+            _context.Persons.Add(person);
+            _context.SaveChanges();
             return person;
         }
         public Person Update(Person person)
         {
+            var personToUpdate = _context.Persons.Find(person.Id);
+            if (personToUpdate == null) return null;
+
+            _context.Entry(personToUpdate).CurrentValues.SetValues(person);
+            _context.SaveChanges();
+
             return person;
         }
         public void Delete(long id)
         {
-            // No content
-        }
-        private Person MockPerson(int i)
-        {
-            var person = new Person
+            var person = _context.Persons.Find(id);
+            if (person != null)
             {
-                Id = new Random().Next(1, 1000),
-                FirstName = "Leandro " + i,
-                LastName = "Costa " + i,
-                Address = "Uberlândia - Minas Gerais - Brasil " + i,
-                Gender = "Male"
-            };
-            return person;
+                _context.Persons.Remove(person);
+                _context.SaveChanges();
+            }
         }
     }
 }
