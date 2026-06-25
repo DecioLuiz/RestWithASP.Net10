@@ -1,49 +1,37 @@
 ﻿using RestWithASPNet10.Model;
-using RestWithASPNet10.Model.Context;
+using RestWithASPNet10.Repositories;
 
 namespace RestWithASPNet10.Service.Impl
 {
     public class PersonServiceImpl : IPersonService
     {
-        private MSSQLContext _context;
+        private IPersonRepository _repository;
 
-        public PersonServiceImpl(MSSQLContext context)
+        public PersonServiceImpl(IPersonRepository personRepository)
         {
-            _context = context;
+            _repository = personRepository;
         }
         public List<Person> FindAll()
         {
-            return _context.Persons.ToList<Person>();
+            return _repository.FindAll();
         }
         public Person FindById(long id)
         {
-            return _context.Persons.Find(id);
+            return _repository.FindById(id);
         }
         public Person Create(Person person)
         {
-            _context.Persons.Add(person);
-            _context.SaveChanges();
-            return person;
+            return _repository.Create(person);
         }
         public Person Update(Person person)
         {
-            var personToUpdate = _context.Persons.Find(person.Id);
-            if (personToUpdate == null) return null;
-
-            _context.Entry(personToUpdate).CurrentValues.SetValues(person);
-            _context.SaveChanges();
-
-            return person;
+            return _repository.Update(person);
         }
         public void Delete(long id)
         {
-            var person = _context.Persons.Find(id);
-            if (person != null)
-            {
-                _context.Persons.Remove(person);
-                _context.SaveChanges();
-            }
+            _repository.Delete(id);
         }
     }
 }
-   
+                
+       
