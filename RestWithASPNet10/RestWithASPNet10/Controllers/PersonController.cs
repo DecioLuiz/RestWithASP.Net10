@@ -10,21 +10,26 @@ namespace RestWithASPNet10.Controllers
     public class PersonController : ControllerBase
     {
         private readonly IPersonService _personService;
-        public PersonController(Service.IPersonService personService)
+        private readonly ILogger<PersonController> _logger;
+        public PersonController(Service.IPersonService personService, ILogger<PersonController> logger)
         {
             _personService = personService;
+            _logger = logger;
         }
         [HttpGet]
         public IActionResult Get()
         {
+            _logger.LogInformation("Fetching all persons.");
             return Ok(_personService.FindAll());
         }
         [HttpGet("{id}")]
         public IActionResult Get(long id)
         {
+            _logger.LogInformation("Fetching person with ID: {Id}", id);
             var person = _personService.FindById(id);
-            if(person == null)
+            if (person == null)
             {
+                _logger.LogWarning("Person with ID: {Id} not found.", id);
                 return NotFound();
             }
             return Ok(person);
@@ -32,22 +37,35 @@ namespace RestWithASPNet10.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] Person person)
         {
+            _logger.LogInformation("Creating new person.");
             var createdPerson = _personService.Create(person);
-            if (createdPerson == null) return NotFound();
+            if (createdPerson == null)
+            {
+                _logger.LogWarning("Failed to create person with name: {FirstName}", person.FirstName);
+                return NotFound();
+            }
             return Ok(createdPerson);
         }
         [HttpPut]
         public IActionResult Put([FromBody] Person person)
         {
+            _logger.LogInformation("Updating person with ID: {Id}", person.Id);
             var createdPerson = _personService.Update(person);
-            if (createdPerson == null) return NotFound();
+            if (createdPerson == null)
+            {
+                _logger.LogWarning("Failed to update person with ID: {Id}", person.Id);
+                return NotFound();
+            }
+            _logger.LogDebug("Person with name: {FirstName} updated successfully.", createdPerson.FirstName);
             return Ok(createdPerson);
         }
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
+            _logger.LogInformation("Deleting person with ID: {Id}", id);
             _personService.Delete(id);
+            _logger.LogDebug("Person with ID: {Id} deleted successfully.", id);
             return NoContent();
         }
-}
+    }
 }
