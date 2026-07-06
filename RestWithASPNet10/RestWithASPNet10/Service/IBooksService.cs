@@ -1,13 +1,14 @@
-﻿using RestWithASPNet10.Model;
+﻿using RestWithASPNet10.Data.DTO;
+using RestWithASPNet10.Model;
 
 namespace RestWithASPNet10.Service
 {
     public interface IBooksService
     {
-        Books Create(Books book);
-        Books FindById(long id);
-        List<Books> FindAll();
-        Books Update(Books book);
+        BooksDTO Create(BooksDTO book);
+        BooksDTO FindById(long id);
+        List<BooksDTO> FindAll();
+        BooksDTO Update(BooksDTO book);
         void Delete(long id);
     }
 }

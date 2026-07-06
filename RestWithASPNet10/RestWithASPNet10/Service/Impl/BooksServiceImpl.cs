@@ -1,4 +1,6 @@
-﻿using RestWithASPNet10.Model;
+﻿using Mapster;
+using RestWithASPNet10.Data.DTO;
+using RestWithASPNet10.Model;
 using RestWithASPNet10.Repositories;
 
 namespace RestWithASPNet10.Service.Impl
@@ -11,21 +13,25 @@ namespace RestWithASPNet10.Service.Impl
         {
             _repository = booksRepository;
         }
-        public List<Books> FindAll()
+        public List<BooksDTO> FindAll()
         {
-            return _repository.FindAll();
+            return _repository.FindAll().Adapt<List<BooksDTO>>();
         }
-        public Books FindById(long id)
+        public BooksDTO FindById(long id)
         {
-            return _repository.FindById(id);
+            return _repository.FindById(id).Adapt<BooksDTO>();
         }
-        public Books Create(Books book)
+        public BooksDTO Create(BooksDTO book)
         {
-            return _repository.Create(book);
+            var entity = book.Adapt<Books>();
+            entity = _repository.Create(entity);
+            return entity.Adapt<BooksDTO>();
         }
-        public Books Update(Books book)
+        public BooksDTO Update(BooksDTO book)
         {
-            return _repository.Update(book);
+            var entity = book.Adapt<Books>();
+            entity = _repository.Update(entity);
+            return entity.Adapt<BooksDTO>();
         }
         public void Delete(long id)
         {

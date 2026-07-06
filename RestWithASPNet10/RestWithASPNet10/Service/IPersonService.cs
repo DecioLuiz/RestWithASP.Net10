@@ -1,13 +1,13 @@
-﻿using RestWithASPNet10.Model;
+﻿using RestWithASPNet10.Data.DTO;
 
 namespace RestWithASPNet10.Service
 {
     public interface IPersonService
     {
-        Person Create(Person person);
-        Person FindById(long id);
-        List<Person> FindAll();
-        Person Update(Person person);
+        PersonDTO Create(PersonDTO personDTO);
+        PersonDTO FindById(long id);
+        List<PersonDTO> FindAll();
+        PersonDTO Update(PersonDTO personDTO);
         void Delete(long id);
     }
 }

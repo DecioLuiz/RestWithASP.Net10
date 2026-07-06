@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RestWithASPNet10.Data.DTO;
 using RestWithASPNet10.Model;
 using RestWithASPNet10.Service;
 
@@ -34,7 +35,7 @@ namespace RestWithASPNet10.Controllers
             return Ok(book);
         }
         [HttpPost]
-        public IActionResult Post([FromBody] Books book)
+        public IActionResult Post([FromBody] BooksDTO book)
         {
             _logger.LogInformation("Creating new book.");
             var createdBook = _booksService.Create(book);
@@ -46,7 +47,7 @@ namespace RestWithASPNet10.Controllers
             return Ok(createdBook);
         }
         [HttpPut]
-        public IActionResult Put([FromBody] Books book)
+        public IActionResult Put([FromBody] BooksDTO book)
         {
             _logger.LogInformation("Updating book with ID: {Id}", book.Id);
             var createdBook = _booksService.Update(book);
