@@ -1,15 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using RestWithASPNet10.Model.Base;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RestWithASPNet10.Model
 {
     [Table("books")]
-    public class Books
+    public class Books : BaseEntity
     {
-        [Key]
-        [Column("id")]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public long Id { get; set; }
         [Column("title", TypeName = "varchar(MAX)")]
         public string Title { get; set; }
         [Column("author", TypeName = "varchar(MAX)")]

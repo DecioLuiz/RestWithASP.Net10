@@ -5,9 +5,9 @@ namespace RestWithASPNet10.Service.Impl
 {
     public class PersonServiceImpl : IPersonService
     {
-        private IPersonRepository _repository;
+        private IRepository<Person> _repository;
 
-        public PersonServiceImpl(IPersonRepository personRepository)
+        public PersonServiceImpl(IRepository<Person> personRepository)
         {
             _repository = personRepository;
         }

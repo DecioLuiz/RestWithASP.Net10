@@ -5,9 +5,9 @@ namespace RestWithASPNet10.Service.Impl
 {
     public class BooksServiceImpl : IBooksService
     {
-        private IBooksRepository _repository;
+        private IRepository<Books> _repository;
 
-        public BooksServiceImpl(IBooksRepository booksRepository)
+        public BooksServiceImpl(IRepository<Books> booksRepository)
         {
             _repository = booksRepository;
         }
