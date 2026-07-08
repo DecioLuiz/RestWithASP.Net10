@@ -1,12 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using RestWithASPNet10.Data.DTO;
-using RestWithASPNet10.Model;
+using RestWithASPNet10.Data.DTO.V1;
 using RestWithASPNet10.Service;
 
-namespace RestWithASPNet10.Controllers
+namespace RestWithASPNet10.Controllers.V1
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/[controller]/v1")]
     public class BooksController : ControllerBase
     {
         private readonly IBooksService _booksService;

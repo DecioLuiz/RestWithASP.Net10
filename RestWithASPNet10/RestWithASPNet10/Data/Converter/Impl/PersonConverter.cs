@@ -1,5 +1,5 @@
 ﻿using RestWithASPNet10.Data.Converter.Contract;
-using RestWithASPNet10.Data.DTO;
+using RestWithASPNet10.Data.DTO.V2;
 using RestWithASPNet10.Model;
 
 namespace RestWithASPNet10.Data.Converter.Impl
@@ -16,6 +16,7 @@ namespace RestWithASPNet10.Data.Converter.Impl
                 LastName = origin.LastName,
                 Gender = origin.Gender,
                 Address = origin.Address,
+              //  BirthDate = origin.BirthDate
             };
         }
 
@@ -29,6 +30,8 @@ namespace RestWithASPNet10.Data.Converter.Impl
                 LastName = origin.LastName,
                 Gender = origin.Gender,
                 Address = origin.Address,
+                BirthDate = DateTime.Now
+                //BirthDate = origin.BirthDate ?? DateTime.Now
             };
         }
 

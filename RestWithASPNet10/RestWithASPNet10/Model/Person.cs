@@ -23,5 +23,8 @@ namespace RestWithASPNet10.Model
         [Column("address", TypeName = "varchar(100)")]
         [MaxLength(100)]
         public string Address { get; set; }
+        //[NotMapped]
+        //public DateTime? BirthDate { get; set; }
+        
     }
 }
