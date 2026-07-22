@@ -16,12 +16,18 @@ namespace RestWithASPNet10.Controllers.V1
             _logger = logger;
         }
         [HttpGet]
+        [ProducesResponseType(200, Type = typeof(List<PersonDTO>))]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
         public IActionResult Get()
         {
             _logger.LogInformation("Fetching all persons.");
             return Ok(_personService.FindAll());
         }
         [HttpGet("{id}")]
+        [ProducesResponseType(200, Type = typeof(PersonDTO))]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
         public IActionResult Get(long id)
         {
             _logger.LogInformation("Fetching person with ID: {Id}", id);
@@ -34,6 +40,9 @@ namespace RestWithASPNet10.Controllers.V1
             return Ok(person);
         }
         [HttpPost]
+        [ProducesResponseType(200, Type = typeof(PersonDTO))]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
         public IActionResult Post([FromBody] PersonDTO person)
         {
             _logger.LogInformation("Creating new person.");
@@ -49,6 +58,9 @@ namespace RestWithASPNet10.Controllers.V1
             return Ok(createdPerson);
         }
         [HttpPut]
+        [ProducesResponseType(200, Type = typeof(PersonDTO))]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
         public IActionResult Put([FromBody] PersonDTO person)
         {
             _logger.LogInformation("Updating person with ID: {Id}", person.Id);
@@ -62,6 +74,9 @@ namespace RestWithASPNet10.Controllers.V1
             return Ok(createdPerson);
         }
         [HttpDelete("{id}")]
+        [ProducesResponseType(204, Type = typeof(PersonDTO))]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
         public IActionResult Delete(int id)
         {
             _logger.LogInformation("Deleting person with ID: {Id}", id);

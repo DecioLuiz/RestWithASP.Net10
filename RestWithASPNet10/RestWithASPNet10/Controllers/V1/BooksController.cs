@@ -16,12 +16,18 @@ namespace RestWithASPNet10.Controllers.V1
             _logger = logger;
         }
         [HttpGet]
+        [ProducesResponseType(204, Type = typeof(List<BooksDTO>))]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
         public IActionResult Get()
         {
             _logger.LogInformation("Fetching all books.");
             return Ok(_booksService.FindAll());
         }
         [HttpGet("{id}")]
+        [ProducesResponseType(200, Type = typeof(BooksDTO))]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
         public IActionResult Get(long id)
         {
             _logger.LogInformation("Fetching book with ID: {Id}", id);
@@ -34,6 +40,9 @@ namespace RestWithASPNet10.Controllers.V1
             return Ok(book);
         }
         [HttpPost]
+        [ProducesResponseType(200, Type = typeof(BooksDTO))]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
         public IActionResult Post([FromBody] BooksDTO book)
         {
             _logger.LogInformation("Creating new book.");
@@ -46,6 +55,9 @@ namespace RestWithASPNet10.Controllers.V1
             return Ok(createdBook);
         }
         [HttpPut]
+        [ProducesResponseType(200, Type = typeof(BooksDTO))]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
         public IActionResult Put([FromBody] BooksDTO book)
         {
             _logger.LogInformation("Updating book with ID: {Id}", book.Id);
@@ -59,6 +71,9 @@ namespace RestWithASPNet10.Controllers.V1
             return Ok(createdBook);
         }
         [HttpDelete("{id}")]
+        [ProducesResponseType(204, Type = typeof(BooksDTO))]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
         public IActionResult Delete(int id)
         {
             _logger.LogInformation("Deleting book with ID: {Id}", id);
